@@ -67,6 +67,17 @@ build: checks
 	@echo "Building mc binary to './mc'"
 	@GO111MODULE=on CGO_ENABLED=0 go build -trimpath -tags kqueue --ldflags $(BUILD_LDFLAGS) -o $(PWD)/mc
 
+# Builds mc windows.
+build-windows: checks
+	@echo "Building minio binary to './mc.exe'"
+	@GO111MODULE=on CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -trimpath -tags kqueue --ldflags $(BUILD_LDFLAGS) -o $(PWD)/mc.exe
+
+# Builds mc linux.
+build-linux: checks
+	@echo "Building minio binary to './mc'"
+	@GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -tags kqueue --ldflags $(BUILD_LDFLAGS) -o $(PWD)/mc
+
+
 # Builds MinIO and installs it to $GOPATH/bin.
 install: build
 	@echo "Installing mc binary to '$(GOPATH)/bin/mc'"
